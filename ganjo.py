@@ -1417,7 +1417,7 @@ def ping():
     return "Xixi! Bot masih hidup."
 
 def keep_alive():
-    port = int(os.environ.get('PORT', '8000'))
+    port = int(os.environ.get('PORT', '5000'))
     app.run(host="0.0.0.0", port=port)
 
 threading.Thread(target=keep_alive, daemon=True).start()
@@ -1434,4 +1434,5 @@ async def main():
     await client.run_until_disconnected()
 
 if __name__ == "__main__":
+
     asyncio.run(main())
