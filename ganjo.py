@@ -1408,19 +1408,21 @@ async def cek_lisensi():
 # === SETUP FLASK UNTUK KEEP ALIVE ===
 app = Flask(__name__)
 
-@app.route('/')
+@app.route("/")
 def home():
-    return "Heartie Bot is alive!"
+    return "Heartie Bot is alive!", 200
 
-@app.route('/ping')
+@app.route("/ping")
 def ping():
-    return "Xixi! Bot masih hidup."
+    return "Xixi! Bot masih hidup.", 200
 
-def keep_alive():
-    port = int(os.environ.get('PORT', '5000'))
-    app.run(host="0.0.0.0", port=port)
+def run_flask():
+    port = int(os.environ.get("PORT", 3000))
+    app.run(host="0.0.0.0", port=port, use_reloader=False)
 
-threading.Thread(target=keep_alive, daemon=True).start()
+# JANGAN daemon
+flask_thread = threading.Thread(target=run_flask)
+flask_thread.start()
 
 # === JALANKAN BOT ===
 async def main():
@@ -1436,3 +1438,4 @@ async def main():
 if __name__ == "__main__":
 
     asyncio.run(main())
+
